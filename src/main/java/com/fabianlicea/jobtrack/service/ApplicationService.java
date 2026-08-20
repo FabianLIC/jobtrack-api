@@ -3,6 +3,8 @@ package com.fabianlicea.jobtrack.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fabianlicea.jobtrack.dto.ApplicationResponse;
 import com.fabianlicea.jobtrack.exceptions.ApplicationNotFoundException;
 import com.fabianlicea.jobtrack.model.Application;
 import com.fabianlicea.jobtrack.model.ApplicationStatus;
@@ -18,8 +20,9 @@ public class ApplicationService {
     }
 
     @Transactional(readOnly = true)
-    public List<Application> findAll() {
-        return applicationRepository.findAll();
+    public List<ApplicationResponse> findAll() {
+
+        return applicationRepository.findAll().stream().map(app -> toResponse(app)).toList();
     }
 
     @Transactional(readOnly = true)
@@ -63,5 +66,23 @@ public class ApplicationService {
 
         return applicationRepository.findByUserIdAndStatus(userId, status);
     }
+
+    private ApplicationResponse toResponse(Application application) {
+    return new ApplicationResponse(
+        application.getId(),
+        application.getCompany(),
+        application.getPosition(),
+        application.getStatus(),
+        application.getLocation(),
+        application.getWorkMode(),
+        application.getSalaryMin(),
+        application.getSalaryMax(),
+        application.getOfferUrl(),
+        application.getSource(),
+        application.getAppliedAt(),
+        application.getCreatedAt(),
+        application.getUpdatedAt()
+    );
+}
 
 }
