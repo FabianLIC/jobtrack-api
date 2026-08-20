@@ -195,4 +195,9 @@ public class Application {
         notes.remove(note);
         note.setApplication(null);
     }
+
+	public Application orElseThrow(Object object) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+	}
 }
