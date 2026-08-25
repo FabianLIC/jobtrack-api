@@ -23,3 +23,56 @@ GET http://localhost:8080/api/applications/1
 
 ### Ver una que no existe
 GET http://localhost:8080/api/applications/999
+
+### Sin company
+POST http://localhost:8080/api/applications
+Content-Type: application/json
+
+{
+  "position": "Backend Developer Junior",
+  "status": "SAVED",
+  "location": "Madrid",
+  "workMode": "REMOTE",
+  "salaryMin": 24000,
+  "salaryMax": 30000,
+  "offerUrl": "https://www.linkedin.com/jobs/view/123456789",
+  "source": "LinkedIn",
+  "appliedAt": "2026-08-21"
+}
+
+### Salario negativo
+POST http://localhost:8080/api/applications
+Content-Type: application/json
+
+{
+  "company": "Accenture",
+  "position": "Backend Developer Junior",
+  "status": "SAVED",
+  "location": "Madrid",
+  "workMode": "REMOTE",
+  "salaryMin": -24000,
+  "salaryMax": -30000,
+  "offerUrl": "https://www.linkedin.com/jobs/view/123456789",
+  "source": "LinkedIn",
+  "appliedAt": "2026-08-21"
+}
+
+### Put
+PUT http://localhost:8080/api/applications/1
+Content-Type: application/json
+
+{
+  "company": "Indra",
+  "position": "Backend Developer Junior",
+  "status": "SA",
+  "location": "Madrid",
+  "workMode": "REMOTE",
+  "salaryMin": 24000,
+  "salaryMax": 30000,
+  "offerUrl": "https://www.linkedin.com/jobs/view/123456789",
+  "source": "LinkedIn",
+  "appliedAt": "2026-08-21"
+}
+
+### Delete borrar uno
+DELETE http://localhost:8080/api/applications/3
