@@ -68,6 +68,7 @@ public class Application {
 
     @PreUpdate
     protected void onUpdate() {
+        System.out.println(">>> PreUpdate ejecutado");
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -196,8 +197,7 @@ public class Application {
         note.setApplication(null);
     }
 
-	public Application orElseThrow(Object object) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
-	}
+    public Application orElseThrow(Object object) {
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 }
