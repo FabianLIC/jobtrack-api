@@ -63,6 +63,7 @@ public class ApplicationService {
         application.setOfferUrl(data.offerUrl());
         application.setSource(data.source());
         application.setAppliedAt(data.appliedAt());
+        applicationRepository.saveAndFlush(application);
 
         return toResponse(application);
     }
@@ -76,7 +77,8 @@ public class ApplicationService {
     @Transactional(readOnly = true)
     public List<ApplicationResponse> findByUserIdAndStatus(Long userId, ApplicationStatus status) {
 
-        return applicationRepository.findByUserIdAndStatus(userId, status).stream().map(app -> toResponse(app)).toList();
+        return applicationRepository.findByUserIdAndStatus(userId, status).stream().map(app -> toResponse(app))
+                .toList();
     }
 
     private ApplicationResponse toResponse(Application application) {
