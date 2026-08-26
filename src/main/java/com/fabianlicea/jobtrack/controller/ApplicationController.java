@@ -12,6 +12,8 @@ import com.fabianlicea.jobtrack.dto.ApplicationRequest;
 import com.fabianlicea.jobtrack.dto.ApplicationResponse;
 import com.fabianlicea.jobtrack.service.ApplicationService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-// Le dice a Spring que esta clase gestiona peticiones HTTP y que las respuestas se devuelven como JSON automáticamente (en lugar de HTML)
+@Tag(name = "Applications", description = "Manage job applications")
 @RestController
 @RequestMapping("/api/applications")
 public class ApplicationController {
@@ -32,26 +34,31 @@ public class ApplicationController {
         this.applicationService = applicationService;
     }
 
+    @Operation(summary = "Get all applications")
     @GetMapping
     public List<ApplicationResponse> listAll() {
         return applicationService.findAll(TEMP_USER_ID);
     }
 
+    @Operation(summary = "Get an application by id")
     @GetMapping("/{id}")
     public ApplicationResponse findApplicationById(@PathVariable Long id) {
         return applicationService.findById(id, TEMP_USER_ID);
     }
 
+    @Operation(summary = "Create an application")
     @PostMapping()
     public ResponseEntity<ApplicationResponse> createApplication(@Valid @RequestBody ApplicationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(applicationService.create(request, TEMP_USER_ID));
     }
 
+    @Operation(summary = "Update an application by id")
     @PutMapping("/{id}")
     public ApplicationResponse updateApplication(@PathVariable Long id, @Valid @RequestBody ApplicationRequest request) {
         return applicationService.update(id, TEMP_USER_ID, request);
     }
 
+    @Operation(summary = "Delete an application by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteApplication(@PathVariable Long id) {
         applicationService.delete(id, TEMP_USER_ID);
