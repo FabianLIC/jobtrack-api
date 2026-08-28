@@ -76,3 +76,7 @@ Content-Type: application/json
 
 ### Delete borrar uno
 DELETE http://localhost:8080/api/applications/3
+
+### Token inválido
+GET http://localhost:8080/api/applications
+Authorization: Bearer esto-no-es-un-token
