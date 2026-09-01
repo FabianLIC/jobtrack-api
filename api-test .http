@@ -80,3 +80,45 @@ DELETE http://localhost:8080/api/applications/3
 ### Token inválido
 GET http://localhost:8080/api/applications
 Authorization: Bearer esto-no-es-un-token
+
+### 1. Registro
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Fabian",
+  "email": "fabian@jobtrack.com",
+  "password": "password123"
+}
+
+### 2. Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "fabian@jobtrack.com",
+  "password": "password123"
+}
+
+### 3. Petición autenticada
+GET http://localhost:8080/api/applications
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tIiwiaWF0IjoxNzg4MjA0NzI2LCJleHAiOjE3ODgyOTExMjZ9.3-n0XmFTGVhidzLc9u9zOfValfBVxKxlLPXklCZINMTgTGeWzGjKZRxYBelYWb_H
+
+### Listar todas
+GET http://localhost:8080/api/applications
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tIiwiaWF0IjoxNzg4MjY4MjA0LCJleHAiOjE3ODgzNTQ2MDR9.vEOTPg5YLgoFqK3v2kxtijA10vYiSIN1H77MkHeoG_xA8y6fZONPsS4HlF2H3mRe
+
+### Crear
+POST http://localhost:8080/api/applications
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tIiwiaWF0IjoxNzg4MjY4MjA0LCJleHAiOjE3ODgzNTQ2MDR9.vEOTPg5YLgoFqK3v2kxtijA10vYiSIN1H77MkHeoG_xA8y6fZONPsS4HlF2H3mRe
+
+{
+  "company": "Telefónica",
+  "position": "Java Developer",
+  "location": "Madrid",
+  "workMode": "HYBRID",
+  "salaryMin": 26000,
+  "salaryMax": 32000,
+  "source": "LinkedIn"
+}

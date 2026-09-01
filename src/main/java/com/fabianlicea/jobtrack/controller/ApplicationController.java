@@ -2,6 +2,7 @@ package com.fabianlicea.jobtrack.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fabianlicea.jobtrack.dto.ApplicationRequest;
 import com.fabianlicea.jobtrack.dto.ApplicationResponse;
+import com.fabianlicea.jobtrack.security.UserPrincipal;
 import com.fabianlicea.jobtrack.service.ApplicationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,8 +29,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class ApplicationController {
 
     private final ApplicationService applicationService;
-    // TODO: replace with authenticated user id when Spring Security is implemented
-    private static final Long TEMP_USER_ID = 1L;
 
     public ApplicationController(ApplicationService applicationService) {
         this.applicationService = applicationService;
@@ -36,32 +36,36 @@ public class ApplicationController {
 
     @Operation(summary = "Get all applications")
     @GetMapping
-    public List<ApplicationResponse> listAll() {
-        return applicationService.findAll(TEMP_USER_ID);
+    public List<ApplicationResponse> listAll(@AuthenticationPrincipal UserPrincipal principal) {
+        return applicationService.findAll(principal.getId());
     }
 
     @Operation(summary = "Get an application by id")
     @GetMapping("/{id}")
-    public ApplicationResponse findApplicationById(@PathVariable Long id) {
-        return applicationService.findById(id, TEMP_USER_ID);
+    public ApplicationResponse findApplicationById(@PathVariable Long id,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        return applicationService.findById(id, principal.getId());
     }
 
     @Operation(summary = "Create an application")
     @PostMapping()
-    public ResponseEntity<ApplicationResponse> createApplication(@Valid @RequestBody ApplicationRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(applicationService.create(request, TEMP_USER_ID));
+    public ResponseEntity<ApplicationResponse> createApplication(@Valid @RequestBody ApplicationRequest request,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(applicationService.create(request, principal.getId()));
     }
 
     @Operation(summary = "Update an application by id")
     @PutMapping("/{id}")
-    public ApplicationResponse updateApplication(@PathVariable Long id, @Valid @RequestBody ApplicationRequest request) {
-        return applicationService.update(id, TEMP_USER_ID, request);
+    public ApplicationResponse updateApplication(@PathVariable Long id, @Valid @RequestBody ApplicationRequest request,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        return applicationService.update(id, principal.getId(), request);
     }
 
     @Operation(summary = "Delete an application by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteApplication(@PathVariable Long id) {
-        applicationService.delete(id, TEMP_USER_ID);
+    public ResponseEntity<Void> deleteApplication(@PathVariable Long id,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        applicationService.delete(id, principal.getId());
         return ResponseEntity.noContent().build();
     }
 
