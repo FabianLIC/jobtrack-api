@@ -122,3 +122,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tI
   "salaryMax": 32000,
   "source": "LinkedIn"
 }
+
+### Candidatura de otro usuario
+GET http://localhost:8080/api/applications/1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tIiwiaWF0IjoxNzg4MjY4MjA0LCJleHAiOjE3ODgzNTQ2MDR9.vEOTPg5YLgoFqK3v2kxtijA10vYiSIN1H77MkHeoG_xA8y6fZONPsS4HlF2H3mRe
