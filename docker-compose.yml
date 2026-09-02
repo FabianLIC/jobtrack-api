@@ -4,12 +4,31 @@ services:
     container_name: jobtrack-db
     environment:
       POSTGRES_DB: jobtrack
-      POSTGRES_USER: jobtrack_user
-      POSTGRES_PASSWORD: jobtrack_pass
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - jobtrack_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jobtrack_user -d jobtrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: jobtrack-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/jobtrack
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
 
 volumes:
   jobtrack_data:

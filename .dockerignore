@@ -1,0 +1,7 @@
+target/
+.git/
+.gitignore
+.mvn/
+*.md
+api-test.http
+.vscode/
