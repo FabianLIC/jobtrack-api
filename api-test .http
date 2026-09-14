@@ -106,8 +106,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tI
 
 ### Listar todas
 GET http://localhost:8080/api/applications
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tIiwiaWF0IjoxNzg4MzUxMjU1LCJleHAiOjE3ODg0Mzc2NTV9.iyXcKsdKjLuUUIoexIIlOg6yJZTaACgSRuZdq5xlyBTOPvaeausSY1zX2EGum0Kj
-
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmYWJpYW5Aam9idHJhY2suY29tIiwiaWF0IjoxNzg5Mzk4MjM3LCJleHAiOjE3ODk0ODQ2Mzd9.1sNaGo142pMbyplLJjkC5dU3CVuQIXH4lGB5sn0f2-gOuJpW_12cO0DICbudGhWi
 ### Crear
 POST http://localhost:8080/api/applications
 Content-Type: application/json
